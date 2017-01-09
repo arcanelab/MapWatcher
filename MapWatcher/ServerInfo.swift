@@ -72,7 +72,7 @@ protocol ServerInfoManagerDelegate
  */
 class ServerInfoManager: ServerInfoDelegate
 {
-    private var _mapsToWatch: [String] = []
+    private var _mapsToWatch: [String] = ["Operation Cobra", "Vossenack", "Villers-Bocage", "Ramelle Neuville", "Lebisey"]
     private var _servers: [ServerInfo] = []
     var delegate: ViewController?
     
@@ -104,17 +104,30 @@ class ServerInfoManager: ServerInfoDelegate
     {
         self.delegate = delegate
         
+        _servers.append(ServerInfo(url: "http://www.gametracker.com/server_info/217.79.190.136:16567/", delegate: self))
+        
         //print(UserDefaults.standard.dictionaryRepresentation())
         if let restoredMaps = UserDefaults.standard.object(forKey: "maps") as? [String]
         {
             _mapsToWatch = restoredMaps
         }
         
-        if let serverURLs = UserDefaults.standard.object(forKey: "servers") as? Array<String>
+        if let serverURLs = UserDefaults.standard.object(forKey: "servers") as? [String]
         {
             for url in serverURLs
             {
-                _servers.append(ServerInfo(url: url, delegate: self))
+                var alreadyExisting = false
+                for server in _servers
+                {
+                    if server.url == url
+                    {
+                        alreadyExisting = true
+                    }
+                }
+                if alreadyExisting == false
+                {
+                    _servers.append(ServerInfo(url: url, delegate: self))
+                }
             }
         }
     }

@@ -132,8 +132,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     {
         editingButtons.isHidden = true
         
-        setShadow(view: tableOfMapsToWatch)
-        setShadow(view: mapImage, opacity: 1.0, radius: 5.0)
+        //setShadow(view: tableOfMapsToWatch)
+        //setShadow(view: mapImage, opacity: 1.0, radius: 5.0)
         
         timer = Timer.scheduledTimer(timeInterval: 150, target: self, selector: #selector(self.timerToQueryServerInfo), userInfo: nil, repeats: true)
     }
